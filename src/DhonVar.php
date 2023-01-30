@@ -18,6 +18,27 @@ class DhonVar
      */
     public $apiURL;
 
+    /**
+     * User session name.
+     * 
+     * @var string
+     */
+    public $userSessionName;
+
+    /**
+     * User session expiration.
+     * 
+     * @var int
+     */
+    public $userSessionExpiration;
+
+    /**
+     * Session filled user information in encrypt.
+     *
+     * @var mixed
+     */
+    public $userSession;
+
     public function __construct()
     {
         $this->assetsURL = getenv('app.assetsURL');
