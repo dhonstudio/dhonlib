@@ -5,10 +5,15 @@ namespace Dhonstudio\Dhonlib;
 /**
  * Class DhonLib
  *
- * For access DhonLib variable, please add and set up this lists to .env:
+ * For access DhonLib variables, please add and set up this lists to .env:
  * 
  * @var string $assets 'app.assetsURL'
  * @var string $api_url 'app.apiURL'
+ * 
+ * For access Session variables, please add and set up this lists to .env:
+ *  
+ * @var string $userSessionName 'session.userName'
+ * @var string $userSessionExpiration 'session.userExpiration'
  */
 class DhonLib extends DhonVar
 {
@@ -27,6 +32,9 @@ class DhonLib extends DhonVar
         }
     }
 
+    /**
+     * For calling function in the Session class.
+     */
     public function initSession()
     {
         $dhonsession = new DhonSession();

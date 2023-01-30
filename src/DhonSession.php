@@ -10,6 +10,11 @@ class DhonSession extends DhonVar
         $this->userSessionExpiration = getenv('session.userExpiration');
     }
 
+    /**
+     * For init any Session needed.
+     * 
+     * @param string|array $sessionTypes can choose 'user' 
+     */
     public function initSession($sessionTypes)
     {
         if ($sessionTypes == 'user' || in_array('user', $sessionTypes)) {
