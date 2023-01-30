@@ -9,18 +9,18 @@ class DhonVar
      *
      * @var string
      */
-    public $assets;
+    public $assetsURL;
 
     /**
      * API URL.
      *
      * @var string
      */
-    public $api_url;
+    public $apiURL;
 
     public function __construct()
     {
-        $this->assets = getenv('app.assetsURL');
-        $this->api_url = getenv('app.apiURL');
+        $this->assetsURL = getenv('app.assetsURL');
+        $this->apiURL = getenv('app.apiURL');
     }
 }
