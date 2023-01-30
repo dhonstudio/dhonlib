@@ -27,6 +27,13 @@ class DhonLib extends DhonVar
         }
     }
 
+    public function initSession()
+    {
+        $dhonsession = new DhonSession();
+
+        return $dhonsession;
+    }
+
     /**
      * Basic Auth Bearer.
      */
