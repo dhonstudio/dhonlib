@@ -1,0 +1,18 @@
+{
+    "name": "dhonstudio/dhonlib",
+    "description": "This is Dhon Studio library for helping any PHP apps.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Dhonstudio\\Dhonlib\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dhon Studio",
+            "email": "dhonstudio@yahoo.com"
+        }
+    ],
+    "require": {}
+}
