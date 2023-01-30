@@ -2,10 +2,20 @@
 
 namespace Dhonstudio\Dhonlib;
 
-class DhonLib
+/**
+ * Class DhonLib
+ *
+ * For access DhonLib variable, please add and set up this lists to .env:
+ * 
+ * @var string $assets 'app.assetsURL'
+ * @var string $api_url 'app.apiURL'
+ */
+class DhonLib extends DhonVar
 {
     /**
-     * For securing Development Server. Please add 'php.authUser' and 'php.authPw' in .env as user and password for basic auth.
+     * For securing Development Server. 
+     * Please add 'php.authUser' and 'php.authPw' in .env 
+     * as user and password for basic auth.
      * 
      * @param string $envName 
      * @param string $envURL
