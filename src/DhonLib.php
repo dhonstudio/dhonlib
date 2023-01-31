@@ -13,10 +13,30 @@ namespace Dhonstudio\Dhonlib;
  * For access Session variables, please add and set up this lists to .env:
  *  
  * @var string $userSessionName 'session.userName'
- * @var string $userSessionExpiration 'session.userExpiration'
+ * @var int $userSessionExpiration 'session.userExpiration'
+ * @var string $bearerTokenSessionName 'session.bearerName'
+ * @var int $bearerTokenSessionExpiration 'session.bearerExpiration'
+ * @var string $redirectSessionName 'session.redirectName'
+ * @var int $redirectSessionExpiration 'session.redirectExpiration'
  */
 class DhonLib extends DhonVar
 {
+    /**
+     * Basic Auth Bearer.
+     */
+    private function _basicAuthBearer()
+    {
+        header('WWW-Authenticate: Basic realm="My Realm"');
+        if (
+            !isset($_SERVER['PHP_AUTH_USER'])
+            || $_SERVER['PHP_AUTH_USER'] != getenv('php.authUser')
+            || $_SERVER['PHP_AUTH_PW'] != getenv('php.authPw')
+        ) {
+            print_r('UNAUTHORIZED');
+            die;
+        }
+    }
+
     /**
      * For securing Development Server. 
      * Please add 'php.authUser' and 'php.authPw' in .env 
@@ -40,21 +60,5 @@ class DhonLib extends DhonVar
         $dhonsession = new DhonSession();
 
         return $dhonsession;
-    }
-
-    /**
-     * Basic Auth Bearer.
-     */
-    private function _basicAuthBearer()
-    {
-        header('WWW-Authenticate: Basic realm="My Realm"');
-        if (
-            !isset($_SERVER['PHP_AUTH_USER'])
-            || $_SERVER['PHP_AUTH_USER'] != getenv('php.authUser')
-            || $_SERVER['PHP_AUTH_PW'] != getenv('php.authPw')
-        ) {
-            print_r('UNAUTHORIZED');
-            die;
-        }
     }
 }
