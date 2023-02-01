@@ -4,16 +4,6 @@ namespace Dhonstudio\Dhonlib;
 
 class DhonSession extends DhonVar
 {
-    public function __construct()
-    {
-        $this->userSessionName = getenv('session.userName');
-        $this->userSessionExpiration = getenv('session.userExpiration');
-        $this->redirectSessionName = getenv('session.redirectName');
-        $this->redirectSessionExpiration = getenv('session.redirectExpiration');
-        $this->bearerTokenSessionName = getenv('session.bearerName');
-        $this->bearerTokenSessionExpiration = getenv('session.bearerExpiration');
-    }
-
     /**
      * For init any Session needed.
      * 
