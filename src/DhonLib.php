@@ -4,6 +4,8 @@ namespace Dhonstudio\Dhonlib;
 
 /**
  * Class DhonLib
+ * 
+ * @var mixed $params optional, can add: array('headers' => array())
  *
  * For access DhonLib variables, please add and set up this lists to .env:
  * 
@@ -67,7 +69,8 @@ class DhonLib extends DhonVar
      */
     public function curl()
     {
-        $dhoncurl = new DhonCurl();
+        $headers = isset($this->params['headers']) ? $this->params['headers'] : [];
+        $dhoncurl = new DhonCurl($headers);
 
         return $dhoncurl;
     }

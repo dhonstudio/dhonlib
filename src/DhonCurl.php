@@ -4,10 +4,17 @@ namespace Dhonstudio\Dhonlib;
 
 class DhonCurl
 {
-    public function get($url, $headers = [])
+    protected $headers;
+
+    public function __construct($headers = [])
+    {
+        $this->headers = $headers;
+    }
+
+    public function get($url)
     {
         $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         curl_close($ch);

@@ -5,6 +5,13 @@ namespace Dhonstudio\Dhonlib;
 class DhonVar
 {
     /**
+     * Any params in construct.
+     *
+     * @var mixed
+     */
+    public $params;
+
+    /**
      * Assets URL.
      *
      * @var string
@@ -81,8 +88,9 @@ class DhonVar
      */
     public $bearerTokenSession;
 
-    public function __construct()
+    public function __construct($params = [])
     {
+        $this->params = $params;
         $this->assetsURL = getenv('app.assetsURL');
         $this->apiURL = getenv('app.apiURL');
     }
