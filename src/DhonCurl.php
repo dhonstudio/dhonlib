@@ -4,12 +4,6 @@ namespace Dhonstudio\Dhonlib;
 
 class DhonCurl extends DhonVar
 {
-    public function __construct()
-    {
-        $this->headers = isset($_SESSION[$this->bearerTokenSessionName]) ?
-            ['Authorization: Bearer ' . $_SESSION[$this->bearerTokenSessionName]] : [];
-    }
-
     public function get($url)
     {
         $ch = curl_init($url);

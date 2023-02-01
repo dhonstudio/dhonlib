@@ -62,5 +62,9 @@ class DhonVar
         $this->redirectSessionExpiration = getenv('session.redirectExpiration');
         $this->bearerTokenSessionName = getenv('session.bearerName');
         $this->bearerTokenSessionExpiration = getenv('session.bearerExpiration');
+
+        //~ Init header for CURL request.
+        $this->headers = isset($_SESSION[$this->bearerTokenSessionName]) ?
+            ['Authorization: Bearer ' . $_SESSION[$this->bearerTokenSessionName]] : [];
     }
 }
