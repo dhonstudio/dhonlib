@@ -22,25 +22,14 @@ class DhonCurl
         return json_decode($result, true);
     }
 
-    public function post($url, $headers = [], $data)
+    public function post($url, $data)
     {
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        /* set the content type json */
-        $headers[] = 'Content-Type:application/json';
-        $token = "your_token";
-        $headers[] = "Authorization: Bearer " . $token;
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        /* set return type json */
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        /* execute request */
         $result = curl_exec($ch);
-
-        /* close cURL resource */
         curl_close($ch);
 
         return json_decode($result, true);
