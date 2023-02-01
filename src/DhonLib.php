@@ -61,4 +61,14 @@ class DhonLib extends DhonVar
 
         return $dhonsession;
     }
+
+    /**
+     * For calling function in the Curl class.
+     */
+    public function curl()
+    {
+        $dhoncurl = new DhonCurl();
+
+        return $dhoncurl;
+    }
 }
