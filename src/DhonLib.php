@@ -55,16 +55,6 @@ class DhonLib extends DhonVar
     }
 
     /**
-     * For calling function in the Session class.
-     */
-    public function initSession()
-    {
-        $dhonsession = new DhonSession();
-
-        return $dhonsession;
-    }
-
-    /**
      * For calling function in the Curl class.
      */
     public function curl()

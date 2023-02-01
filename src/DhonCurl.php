@@ -24,9 +24,14 @@ class DhonCurl
 
     public function post($url, $data)
     {
-        $ch = curl_init($url);
+        $post = [];
+        foreach (array_keys($data) as $key => $value) {
+            array_push($post, $value . '=' . array_values($data)[$key]);
+        }
+        $final_post = implode("&", $post);
 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $final_post);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
