@@ -5,13 +5,6 @@ namespace Dhonstudio\Dhonlib;
 /**
  * Class DhonLib
  * 
- * @var mixed $params optional, can add: array('headers' => array())
- *
- * For access DhonLib variables, please add and set up this lists to .env:
- * 
- * @var string $assets 'app.assetsURL'
- * @var string $api_url 'app.apiURL'
- * 
  * For access Session variables, please add and set up this lists to .env:
  *  
  * @var string $userSessionName 'session.userName'
@@ -59,8 +52,7 @@ class DhonLib extends DhonVar
      */
     public function curl()
     {
-        $headers = isset($this->params['headers']) ? $this->params['headers'] : [];
-        $dhoncurl = new DhonCurl($headers);
+        $dhoncurl = new DhonCurl();
 
         return $dhoncurl;
     }

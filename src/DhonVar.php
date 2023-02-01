@@ -5,25 +5,11 @@ namespace Dhonstudio\Dhonlib;
 class DhonVar
 {
     /**
-     * Any params in construct.
+     * Header option for CURL request.
      *
      * @var mixed
      */
-    public $params;
-
-    /**
-     * Assets URL.
-     *
-     * @var string
-     */
-    public $assetsURL;
-
-    /**
-     * API URL.
-     *
-     * @var string
-     */
-    public $apiURL;
+    public $headers;
 
     /**
      * User session name.
@@ -67,11 +53,8 @@ class DhonVar
      */
     public $bearerTokenSessionExpiration;
 
-    public function __construct($params = [])
+    public function __construct()
     {
-        $this->assetsURL = getenv('app.assetsURL');
-        $this->apiURL = getenv('app.apiURL');
-
         //~ For Session
         $this->userSessionName = getenv('session.userName');
         $this->userSessionExpiration = getenv('session.userExpiration');
@@ -79,8 +62,5 @@ class DhonVar
         $this->redirectSessionExpiration = getenv('session.redirectExpiration');
         $this->bearerTokenSessionName = getenv('session.bearerName');
         $this->bearerTokenSessionExpiration = getenv('session.bearerExpiration');
-
-        //~ Init params
-        $this->params = isset($_SESSION[$this->bearerTokenSessionName]) ? ['headers' => ['Authorization: Bearer ' . $_SESSION[$this->bearerTokenSessionName]]] : $params;
     }
 }

@@ -2,13 +2,12 @@
 
 namespace Dhonstudio\Dhonlib;
 
-class DhonCurl
+class DhonCurl extends DhonVar
 {
-    protected $headers;
-
-    public function __construct($headers = [])
+    public function __construct()
     {
-        $this->headers = $headers;
+        $this->headers = isset($_SESSION[$this->bearerTokenSessionName]) ?
+            ['Authorization: Bearer ' . $_SESSION[$this->bearerTokenSessionName]] : [];
     }
 
     public function get($url)
