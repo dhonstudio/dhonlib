@@ -69,7 +69,6 @@ class DhonVar
 
     public function __construct($params = [])
     {
-        $this->params = $params;
         $this->assetsURL = getenv('app.assetsURL');
         $this->apiURL = getenv('app.apiURL');
 
@@ -80,5 +79,8 @@ class DhonVar
         $this->redirectSessionExpiration = getenv('session.redirectExpiration');
         $this->bearerTokenSessionName = getenv('session.bearerName');
         $this->bearerTokenSessionExpiration = getenv('session.bearerExpiration');
+
+        //~ Init params
+        $this->params = isset($_SESSION[$this->bearerTokenSessionName]) ? ['headers' => ['Authorization: Bearer ' . $_SESSION[$this->bearerTokenSessionName]]] : $params;
     }
 }
