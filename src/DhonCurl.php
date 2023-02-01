@@ -12,7 +12,7 @@ class DhonCurl
         $result = curl_exec($ch);
         curl_close($ch);
 
-        return json_decode(json_decode($result, true), true);
+        return json_decode($result, true);
     }
 
     public function post($url, $headers = [], $data)
@@ -36,6 +36,6 @@ class DhonCurl
         /* close cURL resource */
         curl_close($ch);
 
-        return json_decode(json_decode($result, true), true);
+        return json_decode($result, true);
     }
 }
