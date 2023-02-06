@@ -12,6 +12,13 @@ class DhonVar
     public $headers;
 
     /**
+     * API URL.
+     *
+     * @var string
+     */
+    public $apiURL;
+
+    /**
      * User session name.
      * 
      * @var string
@@ -55,6 +62,8 @@ class DhonVar
 
     public function __construct()
     {
+        $this->apiURL = getenv('app.apiURL');
+
         //~ For Session
         $this->userSessionName = getenv('session.userName');
         $this->userSessionExpiration = getenv('session.userExpiration');

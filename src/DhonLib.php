@@ -5,6 +5,10 @@ namespace Dhonstudio\Dhonlib;
 /**
  * Class DhonLib
  * 
+ * For access DhonLib variables, please add and set up this lists to .env:
+ * 
+ * @var string $api_url 'app.apiURL'
+ * 
  * For access Session variables, please add and set up this lists to .env:
  *  
  * @var string $userSessionName 'session.userName'
@@ -55,5 +59,20 @@ class DhonLib extends DhonVar
         $dhoncurl = new DhonCurl();
 
         return $dhoncurl;
+    }
+
+    /**
+     * Create Token.
+     * 
+     * @param string $username
+     * @param string $password
+     */
+    public function createToken($username, $password)
+    {
+        //~ Get General bearer Token
+        $bearerToken = $this->curl()->get('auth/me?email=' . $username . '&password=' . $password);
+        if (isset($bearerToken['access_token'])) {
+            $_SESSION[$this->bearerTokenSessionName] = $bearerToken['access_token'];
+        }
     }
 }
