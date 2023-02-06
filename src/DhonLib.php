@@ -5,10 +5,6 @@ namespace Dhonstudio\Dhonlib;
 /**
  * Class DhonLib
  * 
- * For access DhonLib variables, please add and set up this lists to .env:
- * 
- * @var string $api_url 'app.apiURL'
- * 
  * For access Session variables, please add and set up this lists to .env:
  *  
  * @var string $userSessionName 'session.userName'
@@ -38,11 +34,10 @@ class DhonLib extends DhonVar
 
     /**
      * For securing Development Server. 
-     * Please add 'php.authUser' and 'php.authPw' in .env 
-     * as user and password for basic auth.
+     * Please add 'php.authUser' as user and 'php.authPw' as password in .env for basic auth.
      * 
-     * @param string $envName 
-     * @param string $envURL
+     * @param string $envName filled with environtment param name
+     * @param string $envURL filled with environtment URL which want to secure
      */
     public function secureDev($envName, $envURL)
     {
@@ -53,12 +48,23 @@ class DhonLib extends DhonVar
 
     /**
      * For calling function in the Curl class.
+     * Curl class filled function to call CURL request.
+     * Please add and set up 'app.apiURL' to .env:
+     * 
+     * @param string $method 'GET'|'POST'|'PUT'
+     * @param string $url filled with url (with http or https) or endpoint (if 'app.apiURL' has been init)
+     * @param mixed $data only for 'POST' and 'PUT' request
      */
-    public function curl()
+    public function curl($method, $url, $data = [])
     {
         $dhoncurl = new DhonCurl();
 
-        return $dhoncurl;
+        return $method == 'GET' ? $dhoncurl->get($url)
+            : ($method == 'POST' ? $dhoncurl->post($url, $data)
+                : ($method == 'PUT' ? $dhoncurl->put($url, $data)
+                    : null
+                )
+            );
     }
 
     /**
@@ -70,7 +76,7 @@ class DhonLib extends DhonVar
     public function createToken($username, $password)
     {
         //~ Get General bearer Token
-        $bearerToken = $this->curl()->get('auth/me?email=' . $username . '&password=' . $password);
+        $bearerToken = $this->curl('GET', 'auth/me?email=' . $username . '&password=' . $password);
         if (isset($bearerToken['access_token'])) {
             $_SESSION[$this->bearerTokenSessionName] = $bearerToken['access_token'];
         }

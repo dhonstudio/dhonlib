@@ -4,13 +4,21 @@ namespace Dhonstudio\Dhonlib;
 
 class DhonCurl extends DhonVar
 {
-    public function get($url)
+    private function _initCURL($url)
     {
-        $final_url = strpos($url, "http") !== false ? $url : $this->apiURL . $url;
+        $final_url = strpos($url, "http") !== false ? $url : getenv('app.apiURL') . $url;
 
         $ch = curl_init($final_url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        return $ch;
+    }
+
+    public function get($url)
+    {
+        $ch = $this->_initCURL($url);
+
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -19,18 +27,14 @@ class DhonCurl extends DhonVar
 
     public function post($url, $data)
     {
-        $final_url = strpos($url, "http") !== false ? $url : $this->apiURL . $url;
-
         $post = [];
         foreach (array_keys($data) as $key => $value) {
             array_push($post, $value . '=' . array_values($data)[$key]);
         }
         $final_post = implode("&", $post);
 
-        $ch = curl_init($final_url);
+        $ch = $this->_initCURL($url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $final_post);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -39,14 +43,10 @@ class DhonCurl extends DhonVar
 
     public function put($url, $data)
     {
-        $final_url = strpos($url, "http") !== false ? $url : $this->apiURL . $url;
-
         array_push($this->headers, 'Content-Type: application/json');
         array_push($this->headers, 'Content-Length: ' . (string) strlen(json_encode($data)));
 
-        $ch = curl_init($final_url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $ch = $this->_initCURL($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         $result = curl_exec($ch);
