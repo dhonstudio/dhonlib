@@ -4,15 +4,6 @@ namespace Dhonstudio\Dhonlib;
 
 /**
  * Class DhonLib
- * 
- * For access Session variables, please add and set up this lists to .env:
- *  
- * @var string $userSessionName 'session.userName'
- * @var int $userSessionExpiration 'session.userExpiration'
- * @var string $bearerTokenSessionName 'session.bearerName'
- * @var int $bearerTokenSessionExpiration 'session.bearerExpiration'
- * @var string $redirectSessionName 'session.redirectName'
- * @var int $redirectSessionExpiration 'session.redirectExpiration'
  */
 class DhonLib extends DhonVar
 {
@@ -33,7 +24,8 @@ class DhonLib extends DhonVar
     }
 
     /**
-     * For securing Development Server. 
+     * For securing Development Server.
+     * 
      * Please add 'php.authUser' as user and 'php.authPw' as password in .env for basic auth.
      * 
      * @param string $envName filled with environtment param name
@@ -48,8 +40,9 @@ class DhonLib extends DhonVar
 
     /**
      * For calling function in the Curl class.
+     * 
      * Curl class filled function to call CURL request.
-     * Please add and set up 'app.apiURL' to .env:
+     * Please add and set up 'app.apiURL' in .env for default CURL's url.
      * 
      * @param string $method 'GET'|'POST'|'PUT'
      * @param string $url filled with url (with http or https) or endpoint (if 'app.apiURL' has been init)
@@ -70,15 +63,15 @@ class DhonLib extends DhonVar
     /**
      * Create Token.
      * 
-     * @param string $username
-     * @param string $password
+     * Please add 'api.jwtEmail' as user and 'api.jwtPass' as password in .env 
+     * for create jwt Token.
      */
-    public function createToken($username, $password)
+    public function createToken()
     {
         //~ Get General bearer Token
-        $bearerToken = $this->curl('GET', 'auth/me?email=' . $username . '&password=' . $password);
+        $bearerToken = $this->curl('GET', 'auth/me?email=' . getenv('api.jwtEmail') . '&password=' . getenv('api.jwtPass'));
         if (isset($bearerToken['access_token'])) {
-            $_SESSION[$this->bearerTokenSessionName] = $bearerToken['access_token'];
+            $_SESSION[getenv('session.bearerName')] = $bearerToken['access_token'];
         }
     }
 }
