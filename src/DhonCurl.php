@@ -18,7 +18,6 @@ class DhonCurl extends DhonVar
     public function get($url)
     {
         $ch = $this->_initCURL($url);
-
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -27,14 +26,8 @@ class DhonCurl extends DhonVar
 
     public function post($url, $data)
     {
-        $post = [];
-        foreach (array_keys($data) as $key => $value) {
-            array_push($post, $value . '=' . array_values($data)[$key]);
-        }
-        $final_post = implode("&", $post);
-
         $ch = $this->_initCURL($url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $final_post);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         $result = curl_exec($ch);
         curl_close($ch);
 
